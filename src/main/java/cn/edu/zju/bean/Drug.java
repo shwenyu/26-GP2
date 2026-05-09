@@ -47,6 +47,24 @@ public class Drug {
         return drugUrl;
     }
 
+    public String getDrugUrlNormalized() {
+        if (drugUrl == null) {
+            return null;
+        }
+        String trimmed = drugUrl.trim();
+        if (trimmed.isEmpty()) {
+            return null;
+        }
+        String lower = trimmed.toLowerCase();
+        if (lower.startsWith("http://") || lower.startsWith("https://")) {
+            return trimmed;
+        }
+        if (trimmed.startsWith("/")) {
+            return "https://www.pharmgkb.org" + trimmed;
+        }
+        return "https://www.pharmgkb.org/" + trimmed;
+    }
+
     public void setDrugUrl(String drugUrl) {
         this.drugUrl = drugUrl;
     }

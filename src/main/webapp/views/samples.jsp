@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
-    <title>Dashboard Template · Bootstrap</title>
+    <title>My Samples</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<%=request.getContextPath()%>/static/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -25,26 +25,10 @@
     <script src="<%=request.getContextPath()%>/static/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath()%>/static/css/app.css" rel="stylesheet">
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Precision Medicine Matching System</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0 site-title-art" href="#">Precision Medicine Matching System</a>
 
 </nav>
 
@@ -54,12 +38,18 @@
             <jsp:param name="active" value="samples" />
         </jsp:include>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h2>Samples</h2>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 app-main">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-2 border-bottom">
+                <h2 class="mb-1">My Samples</h2>
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
+
+            <div class="page-intro mb-3">
+                Review your uploaded samples and open matching results from the same workspace.
+            </div>
+
+            <div class="app-panel">
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -69,17 +59,33 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:if test="${empty samples}">
+                        <tr>
+                            <td colspan="4">
+                                <div class="app-empty-state mb-0">
+                                    <h5>No samples yet</h5>
+                                    <p>Upload your first annotation file to start matching.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:if>
                     <c:forEach items="${samples}" var="item" varStatus="loop">
                         <tr>
                             <td>${item.id}</td>
-                            <td>${item.uploadedBy}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty item.uploadedByUsername}">${item.uploadedByUsername}</c:when>
+                                    <c:otherwise>User #${item.uploadedBy}</c:otherwise>
+                                </c:choose>
+                            </td>
                             <td>${item.createdAt}</td>
-                            <td><a href="matching?sampleId=${item.id}">matching</a></td>
+                            <td><a class="btn btn-sm btn-outline-primary" href="matching?sampleId=${item.id}">View Results</a></td>
                         </tr>
                     </c:forEach>
 
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

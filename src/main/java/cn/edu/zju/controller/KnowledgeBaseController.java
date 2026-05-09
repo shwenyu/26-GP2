@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.List;
 
 public class KnowledgeBaseController {
@@ -25,6 +26,8 @@ public class KnowledgeBaseController {
     private DosingGuidelineDao dosingGuidelineDao = new DosingGuidelineDao();
 
     public void register(DispatchServlet.Dispatcher dispatcher) {
+        dispatcher.registerGetMapping("/kb/drugs", this::drugs);
+        dispatcher.registerGetMapping("/kb/guidelines", this::dosingGuideline);
         dispatcher.registerGetMapping("/drugs", this::drugs);
         dispatcher.registerGetMapping("/drugLabels", this::drugLabels);
         dispatcher.registerGetMapping("/dosingGuideline", this::dosingGuideline);
@@ -43,8 +46,34 @@ public class KnowledgeBaseController {
     }
 
     public void dosingGuideline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<DosingGuideline> dosingGuidelines = dosingGuidelineDao.findAll();
+        String source = normalizeFilter(request.getParameter("source"));
+        String evidenceLevel = normalizeEvidenceLevel(request.getParameter("evidenceLevel"));
+        List<DosingGuideline> dosingGuidelines;
+        if (source != null && evidenceLevel != null) {
+            dosingGuidelines = dosingGuidelineDao.findBySourceAndEvidence(source, evidenceLevel);
+        } else if (source != null) {
+            dosingGuidelines = dosingGuidelineDao.findBySource(source);
+        } else if (evidenceLevel != null) {
+            dosingGuidelines = dosingGuidelineDao.findByEvidenceLevel(evidenceLevel);
+        } else {
+            dosingGuidelines = dosingGuidelineDao.findAllOrdered();
+        }
+        log.info("Render /kb/guidelines source={} evidenceLevel={} size={}", source, evidenceLevel, dosingGuidelines.size());
         request.setAttribute("dosingGuidelines", dosingGuidelines);
         request.getRequestDispatcher("/views/dosing_guideline.jsp").forward(request, response);
+    }
+
+    private String normalizeFilter(String value) {
+        if (value == null || value.trim().isEmpty() || "all".equalsIgnoreCase(value)) {
+            return null;
+        }
+        return value.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private String normalizeEvidenceLevel(String value) {
+        if (value == null || value.trim().isEmpty() || "all".equalsIgnoreCase(value)) {
+            return null;
+        }
+        return value.trim().toUpperCase(Locale.ROOT);
     }
 }

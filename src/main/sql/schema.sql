@@ -166,6 +166,7 @@ create table dosing_guideline
     recommendation tinyint(1) null,
     drug_id varchar(100) null,
     source varchar(100) null,
+    evidence_level varchar(5) null,
     summary_markdown varchar(2000) null,
     text_markdown text null,
     raw longtext null,
@@ -210,11 +211,50 @@ create table drug_label
 alter table drug_label
     add primary key (id);
 
+create table user
+(
+    id bigint auto_increment
+        primary key,
+    username varchar(64) not null,
+    password_hash varchar(255) not null,
+    created_at datetime null,
+    constraint user_username_uindex
+        unique (username)
+);
+
 create table sample
 (
     id int auto_increment
         primary key,
     created_at datetime null,
-    uploaded_by text null
+    uploaded_by bigint null,
+    constraint fk_sample_uploaded_by_user
+        foreign key (uploaded_by) references user (id)
 );
+
+create table recommendation_record
+(
+    id bigint auto_increment
+        primary key,
+    user_id bigint not null,
+    sample_id int not null,
+    drug_label_id varchar(100) not null,
+    drug_name varchar(200) null,
+    source varchar(100) null,
+    summary_markdown text null,
+    matched_genes varchar(1000) null,
+    created_at datetime null,
+    constraint fk_recommendation_record_user
+        foreign key (user_id) references user (id),
+    constraint fk_recommendation_record_sample
+        foreign key (sample_id) references sample (id),
+    constraint fk_recommendation_record_drug_label
+        foreign key (drug_label_id) references drug_label (id)
+);
+
+create index idx_recommendation_user_created_at
+    on recommendation_record (user_id, created_at);
+
+create index idx_recommendation_sample
+    on recommendation_record (sample_id);
 

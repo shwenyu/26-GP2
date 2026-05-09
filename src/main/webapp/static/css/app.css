@@ -1,5 +1,47 @@
+:root {
+    /* 基础尺寸 */
+    --app-header-height: 64px; /* 略微增加高度让呼吸感更强 */
+    --app-content-max-width: 1180px;
+    --app-page-gutter: 24px;
+
+    /* 核心色彩体系：深蓝与青色，保持精准医疗的专业感 */
+    --app-bg: #f4f7f9; /* 更柔和的浅灰蓝色背景 */
+    --app-surface: #ffffff;
+    --app-surface-soft: #f8fbfe;
+    --app-primary: #006d9e;
+    --app-primary-deep: #004b6e; /* 加深悬停色 */
+    --app-accent: #00a7a0;
+
+    /* 文本与边框 */
+    --app-text: #1e2a36;
+    --app-muted: #64748b; /* 更现代的次要文本色 */
+    --app-border: #e2e8f0;
+
+    /* 现代科技感核心参数：大圆角与柔和阴影 */
+    --app-radius: 12px;
+    --app-shadow: 0 8px 24px rgba(18, 52, 77, 0.06);
+    --app-shadow-hover: 0 12px 32px rgba(18, 52, 77, 0.1);
+    --app-motion: 200ms cubic-bezier(0.4, 0, 0.2, 1); /* 更平滑的动画 */
+}
+
 body {
-    font-size: .875rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--app-text);
+    background: var(--app-bg);
+    font-family: "Inter", "Avenir Next", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    padding-top: var(--app-header-height);
+    -webkit-font-smoothing: antialiased; /* 让字体渲染更平滑 */
+}
+
+a {
+    color: var(--app-primary);
+    transition: color var(--app-motion);
+}
+
+a:hover {
+    color: var(--app-primary-deep);
+    text-decoration: none;
 }
 
 .feather {
@@ -8,99 +50,432 @@ body {
     vertical-align: text-bottom;
 }
 
-/*
- * Sidebar
- */
-
-.sidebar {
+/* ==========================================================================
+   导航栏 (Navbar)
+   ========================================================================== */
+.app-top-menu {
+    width: 100%;
+    padding: 0.75rem 0;
     position: fixed;
     top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 48px 0 0; /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    z-index: 1030;
+    background: var(--app-bg); /* 背景与页面融合 */
 }
 
-.sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+.app-top-nav {
+    max-width: var(--app-content-max-width);
+    margin: 0 auto;
+    background: var(--app-surface-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    padding: 0.4rem 1rem;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-    .sidebar-sticky {
-        position: -webkit-sticky;
-        position: sticky;
-    }
+.site-title-art {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--app-primary) !important;
+    letter-spacing: -0.01em;
 }
 
-.sidebar .nav-link {
+.app-nav-primary .nav-link,
+.app-nav-primary .dropdown-toggle {
+    color: #4a5d6e !important;
     font-weight: 500;
-    color: #333;
+    padding: 0.5rem 0.9rem;
+    border-bottom: 2px solid transparent;
+    border-radius: 6px 6px 0 0;
+    transition: all var(--app-motion);
 }
 
-.sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #999;
+.app-nav-primary .nav-link:hover,
+.app-nav-primary .dropdown-toggle:hover {
+    color: var(--app-primary) !important;
+    background: rgba(0, 109, 158, 0.04);
 }
 
-.sidebar .nav-link.active {
-    color: #007bff;
+.app-nav-primary .nav-link.active,
+.app-nav-primary .dropdown-toggle.active {
+    background: transparent;
+    color: var(--app-primary) !important;
+    border-bottom: 2px solid var(--app-accent); /* 底部青色高亮，科技感 */
+    font-weight: 600;
 }
 
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-    color: inherit;
+.app-nav-account .app-user-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid var(--app-border);
+    color: var(--app-primary-deep);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.sidebar-heading {
-    font-size: .75rem;
-    text-transform: uppercase;
+.app-top-nav .dropdown-menu {
+    border: 1px solid var(--app-border);
+    border-radius: 8px;
+    box-shadow: var(--app-shadow);
+    padding: 0.5rem;
 }
 
-/*
- * Content
- */
+.app-top-nav .dropdown-item {
+    color: #2a3947;
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+}
 
+.app-top-nav .dropdown-item:active,
+.app-top-nav .dropdown-item:hover {
+    background: var(--app-surface-soft);
+    color: var(--app-primary);
+}
+
+/* ==========================================================================
+   页面主框架与通用组件
+   ========================================================================== */
 [role="main"] {
-    padding-top: 133px; /* Space for fixed navbar */
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    padding-left: var(--app-page-gutter);
+    padding-right: var(--app-page-gutter);
 }
 
-@media (min-width: 768px) {
-    [role="main"] {
-        padding-top: 48px; /* Space for fixed navbar */
+.app-main {
+    width: 100%;
+    max-width: var(--app-content-max-width);
+    margin: 0 auto;
+}
+
+.app-panel {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius);
+    box-shadow: var(--app-shadow);
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+/* 按钮优化 */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    transition: all var(--app-motion);
+}
+
+.btn-primary {
+    background-color: var(--app-primary);
+    border-color: var(--app-primary);
+    box-shadow: 0 4px 12px rgba(0, 109, 158, 0.2); /* 发光效果 */
+}
+
+.btn-primary:hover {
+    background-color: var(--app-primary-deep);
+    border-color: var(--app-primary-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 109, 158, 0.3);
+}
+
+.btn-outline-primary {
+    color: var(--app-primary);
+    border-color: #c0dbeb;
+    background: #ffffff;
+}
+
+.btn-outline-primary:hover {
+    color: var(--app-primary-deep);
+    background: #f0f7fb;
+    border-color: var(--app-primary);
+}
+
+/* ==========================================================================
+   主页专属样式 (Dashboard/Home)
+   ========================================================================== */
+.home-page .hero-card {
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 16px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #edf9fa 50%, #ffffff 100%);
+    box-shadow: var(--app-shadow);
+    padding: 3.5rem 3rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 给 Hero 区加一个微小的装饰光晕提升科技感 */
+.home-page .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0,167,160,0.1) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+}
+
+.home-page .hero-eyebrow {
+    color: var(--app-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.home-page .hero-title {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #112a3d;
+}
+
+.home-page .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* 核心工作流网格 */
+.workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.workflow-card {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all var(--app-motion);
+    height: 100%;
+}
+
+.workflow-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--app-shadow-hover);
+    border-color: #c9ddec;
+}
+
+.workflow-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 1.2rem;
+    color: var(--app-primary);
+    background: #f0f7fb;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.workflow-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e2a36;
+    margin-bottom: 0.6rem;
+}
+
+.workflow-card p {
+    color: var(--app-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* ==========================================================================
+   数据统计与标签
+   ========================================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.stat-item {
+    padding: 0.5rem 0;
+}
+
+.stat-item.border-left {
+    border-left: 1px solid var(--app-border) !important;
+}
+
+.stat-label {
+    color: var(--app-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+.stat-value {
+    color: #112a3d;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.status-tag.verified {
+    background: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+}
+
+.status-tag.status-yes {
+    background: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+}
+
+.status-tag.status-no {
+    background: #fff4e5;
+    color: #b06000;
+    border: 1px solid #ffe0b2;
+}
+
+.source-tag,
+.evidence-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.source-tag-pharmgkb {
+    background: #e8f0fe;
+    color: #1a73e8;
+    border: 1px solid #d2e3fc;
+}
+
+.source-tag-cpic {
+    background: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+}
+
+.evidence-badge-high {
+    background: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+}
+
+.evidence-badge-mid {
+    background: #fff8e1;
+    color: #8d6e00;
+    border: 1px solid #ffecb3;
+}
+
+.evidence-badge-low {
+    background: #fce8e6;
+    color: #c5221f;
+    border: 1px solid #f6c7c3;
+}
+
+.evidence-badge-unknown {
+    background: #f1f3f4;
+    color: #5f6368;
+    border: 1px solid #dadce0;
+}
+
+/* ==========================================================================
+   管理后台调试页
+   ========================================================================== */
+.admin-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.admin-kpi-card {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--app-shadow);
+}
+
+.admin-kpi-label {
+    color: var(--app-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+
+.admin-kpi-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #112a3d;
+    line-height: 1.1;
+}
+
+.admin-table-wrap {
+    border: 1px solid var(--app-border);
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   响应式适配 (Mobile & Tablet)
+   ========================================================================== */
+@media (max-width: 991px) {
+    .app-top-nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .app-nav-primary, .app-nav-account {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+    .workflow-grid {
+        grid-template-columns: 1fr;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .admin-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .stat-item.border-left {
+        border-left: none !important;
     }
 }
 
-/*
- * Navbar
- */
-
-.navbar-brand {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    font-size: 1rem;
-    background-color: rgba(0, 0, 0, .25);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-}
-
-.navbar .form-control {
-    padding: .75rem 1rem;
-    border-width: 0;
-    border-radius: 0;
-}
-
-.form-control-dark {
-    color: #fff;
-    background-color: rgba(255, 255, 255, .1);
-    border-color: rgba(255, 255, 255, .1);
-}
-
-.form-control-dark:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+@media (max-width: 576px) {
+    .home-page .hero-card {
+        padding: 2rem 1.5rem;
+    }
+    .home-page .hero-title {
+        font-size: 1.8rem;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .admin-kpi-grid {
+        grid-template-columns: 1fr;
+    }
 }

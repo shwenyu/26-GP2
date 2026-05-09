@@ -22,13 +22,17 @@ public class DrugDao extends BaseDao {
     public void saveDrug(Drug drug) {
         DBUtils.execSQL(connection -> {
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement("insert into drug (id, name, obj_cls, biomarker, drug_url) values    (?,?,?,?,?)");
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "insert into drug (id, name, obj_cls, biomarker, drug_url) values (?,?,?,?,?) " +
+                                "on duplicate key update name=values(name), obj_cls=values(obj_cls), " +
+                                "biomarker=values(biomarker), drug_url=values(drug_url)"
+                );
                 preparedStatement.setString(1, drug.getId());
                 preparedStatement.setString(2, drug.getName());
                 preparedStatement.setString(3, drug.getObjCls());
                 preparedStatement.setBoolean(4, drug.isBiomarker());
                 preparedStatement.setString(5, drug.getDrugUrl());
-                preparedStatement.execute();
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 log.info("", e);
             }

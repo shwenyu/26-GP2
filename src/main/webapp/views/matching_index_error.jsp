@@ -55,15 +55,15 @@
             <jsp:param name="active" value="matching_index" />
         </jsp:include>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 app-main">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h2>Matching</h2>
             </div>
-            <div class="table-responsive">
+            <div class="app-panel">
                 <c:if test="${validateError != null}">
                     <div><c:out value="${validateError}"></c:out></div>
                 </c:if>
-                <c:if test="${fn:contains(validateError, 'invalid')}">
+                <c:if test="${not empty validateError and fn:contains(validateError, 'invalid')}">
                     <div>
                         <div>Please use this command:</div>
                         <code>

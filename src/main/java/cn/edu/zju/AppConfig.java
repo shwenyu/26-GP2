@@ -20,6 +20,9 @@ public class AppConfig {
         InputStream resourceAsStream = null;
         try {
             resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("app.properties");
+            if (resourceAsStream == null) {
+                throw new IllegalStateException("Cannot find app.properties on classpath");
+            }
             Properties properties = new Properties();
             try {
                 properties.load(resourceAsStream);
