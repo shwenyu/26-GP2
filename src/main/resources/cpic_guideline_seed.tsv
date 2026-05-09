@@ -1,0 +1,7 @@
+guideline_id	drug_name	gene	evidence_level	recommendation	summary
+CPIC-CYP2D6-CODEINE	codeine	CYP2D6	1A	Avoid codeine in CYP2D6 poor metabolizers.	CPIC guideline for CYP2D6 and codeine.
+CPIC-CYP2C19-CLOPIDOGREL	clopidogrel	CYP2C19	1A	Use alternative antiplatelet therapy for CYP2C19 poor metabolizers.	CPIC guideline for CYP2C19 and clopidogrel.
+CPIC-CYP2C9-VKORC1-WARFARIN	warfarin	CYP2C9/VKORC1	1A	Use genotype-guided warfarin starting dose.	CPIC guideline for CYP2C9/VKORC1 and warfarin.
+CPIC-SLCO1B1-SIMVASTATIN	simvastatin	SLCO1B1	1A	Lower simvastatin dose or switch statin when SLCO1B1 function is decreased.	CPIC guideline for SLCO1B1 and simvastatin.
+CPIC-HLA-B-ABACAVIR	abacavir	HLA-B	1A	Avoid abacavir if HLA-B*57:01 positive.	CPIC guideline for HLA-B and abacavir.
+

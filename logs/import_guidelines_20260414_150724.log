@@ -1,0 +1,6 @@
+[2026-04-14 15:07:24] [INFO] Starting guideline import pipeline
+[2026-04-14 15:07:24] [INFO] Root dir: /Users/shwenyu/IdeaProjects/haining_biomed
+[2026-04-14 15:07:24] [INFO] DB target: 127.0.0.1:3306/biomed user=biomed
+[2026-04-14 15:07:24] [INFO] Run mode: seed dryRun=0 strict=0
+[2026-04-14 15:07:24] [INFO] Stage 1/3 - Running migrations
+[2026-04-14 15:07:24] [INFO] Applying migration: /Users/shwenyu/IdeaProjects/haining_biomed/src/main/sql/migration/V20260410_01_add_evidence_level_to_dosing_guideline.sql

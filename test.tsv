@@ -1,0 +1,6 @@
+Chr	Start	End	Ref	Alt	Func.refGene	Gene.refGene	ExonicFunc.refGene	AAChange.refGene	avsnp150	1000g2015aug_all	ExAC_ALL	SIFT_score	PolyPhen2_HDIV_score	cosmic70	CLNSIG	InterVar_automated
+chr10	96521616	96521616	G	A	exonic	CYP2C19	nonsynonymous SNV	CYP2C19:NM_000769:exon5:c.G681A:p.W227*	rs4244285	0.010	0.007	0.01	0.99	COSM0000001	Pathogenic	Likely_pathogenic
+chr22	42522613	42522613	C	T	exonic	CYP2D6	nonsynonymous SNV	CYP2D6:NM_000106:exon6:c.C100T:p.P34S	rs1065852	0.013	0.009	0.02	0.97	COSM0000002	Likely_pathogenic	Uncertain_significance
+chr7	117199646	117199646	G	A	exonic	CFTR	synonymous SNV	CFTR:NM_000492:exon11:c.G1521A:p.=	rs1801178	0.004	0.003	0.90	0.01	.	Benign	Benign
+chr6	31353872	31353872	G	A	exonic	HLA-B	nonsynonymous SNV	HLA-B:NM_005514:exon3:c.G230A:p.V77M	rs199474578	0.001	0.001	0.03	0.95	.	Drug_response	Likely_pathogenic
+

@@ -1,0 +1,27 @@
+[2026-04-14 15:13:30] [INFO] Starting guideline import pipeline
+[2026-04-14 15:13:30] [INFO] Root dir: /Users/shwenyu/IdeaProjects/haining_biomed
+[2026-04-14 15:13:30] [INFO] DB target: 127.0.0.1:3306/biomed user=biomed
+[2026-04-14 15:13:30] [INFO] Run mode: seed dryRun=0 strict=0
+[2026-04-14 15:13:30] [INFO] Stage 1/3 - Running migrations
+[2026-04-14 15:13:30] [INFO] Applying migration: /Users/shwenyu/IdeaProjects/haining_biomed/src/main/sql/migration/V20260410_01_add_evidence_level_to_dosing_guideline.sql
+[2026-04-14 15:13:31] [INFO] Applying migration: /Users/shwenyu/IdeaProjects/haining_biomed/src/main/sql/migration/V20260410_02_backfill_guideline_source_and_drug_id.sql
+[2026-04-14 15:13:31] [INFO] Migrations completed
+[2026-04-14 15:13:31] [INFO] Stage 2/3 - Running importer mode=seed
+[2026-04-14 15:13:31] [INFO] Running cn.edu.zju.importer.CpicImporter (classpath seed TSV)
+[2026-04-14 15:13:31] [INFO] Importer stage completed
+[2026-04-14 15:13:31] [INFO] Stage 3/3 - Running verification SQL
+[2026-04-14 15:13:31] [INFO] Source distribution:
+[2026-04-14 15:13:31] [INFO]   dutch pharmacogenetics working group:92
+[2026-04-14 15:13:31] [INFO]   clinical pharmacogenetics implementation consortium:37
+[2026-04-14 15:13:31] [INFO]   canadian pharmacogenomics network for drug safety:7
+[2026-04-14 15:13:31] [INFO]   cpic:5
+[2026-04-14 15:13:31] [INFO]   professional society:2
+[2026-04-14 15:13:31] [INFO] Evidence distribution:
+[2026-04-14 15:13:31] [INFO]   NULL:138
+[2026-04-14 15:13:31] [INFO]   1A:5
+[2026-04-14 15:13:31] [INFO] Null/empty evidence count: 138
+[2026-04-14 15:13:31] [INFO] CPIC unresolved drug_id count: 0
+[2026-04-14 15:13:31] [INFO] Verification completed
+[2026-04-14 15:13:31] [INFO] Done. Log file: /Users/shwenyu/IdeaProjects/haining_biomed/logs/import_guidelines_20260414_151330.log
+[2026-04-14 15:13:31] [INFO] Rollback tip: if this run imported wrong CPIC rows, execute:
+[2026-04-14 15:13:31] [INFO]   DELETE FROM dosing_guideline WHERE source='cpic' AND id LIKE 'CPIC_%';

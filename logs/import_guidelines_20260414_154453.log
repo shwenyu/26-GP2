@@ -1,0 +1,28 @@
+[2026-04-14 15:44:53] [INFO] Starting guideline import pipeline
+[2026-04-14 15:44:53] [INFO] Root dir: /Users/shwenyu/IdeaProjects/haining_biomed
+[2026-04-14 15:44:53] [INFO] DB target: 127.0.0.1:3306/biomed user=biomed
+[2026-04-14 15:44:53] [INFO] Run mode: seed dryRun=0 strict=0
+[2026-04-14 15:44:53] [INFO] Stage 1/3 - Running migrations
+[2026-04-14 15:44:53] [INFO] Applying migration: /Users/shwenyu/IdeaProjects/haining_biomed/src/main/sql/migration/V20260410_01_add_evidence_level_to_dosing_guideline.sql
+[2026-04-14 15:44:53] [INFO] Applying migration: /Users/shwenyu/IdeaProjects/haining_biomed/src/main/sql/migration/V20260410_02_backfill_guideline_source_and_drug_id.sql
+[2026-04-14 15:44:53] [INFO] Migrations completed
+[2026-04-14 15:44:53] [INFO] Skipping import stage
+[2026-04-14 15:44:53] [INFO] Stage 3/3 - Running verification SQL
+[2026-04-14 15:44:53] [INFO] Source distribution:
+[2026-04-14 15:44:53] [INFO]   dpwg:110
+[2026-04-14 15:44:53] [INFO]   cpic:70
+[2026-04-14 15:44:53] [INFO]   canadian pharmacogenomics network for drug safety:7
+[2026-04-14 15:44:53] [INFO]   dutch pharmacogenetics working group:2
+[2026-04-14 15:44:53] [INFO]   professional society:2
+[2026-04-14 15:44:53] [INFO] Evidence distribution:
+[2026-04-14 15:44:53] [INFO]   1A:8
+[2026-04-14 15:44:53] [INFO]   2A:5
+[2026-04-14 15:44:53] [INFO]   2B:1
+[2026-04-14 15:44:53] [INFO]   3:74
+[2026-04-14 15:44:53] [INFO]   4:103
+[2026-04-14 15:44:53] [INFO] Null/empty evidence count: 0
+[2026-04-14 15:44:53] [INFO] CPIC unresolved drug_id count: 0
+[2026-04-14 15:44:53] [INFO] Verification completed
+[2026-04-14 15:44:53] [INFO] Done. Log file: /Users/shwenyu/IdeaProjects/haining_biomed/logs/import_guidelines_20260414_154453.log
+[2026-04-14 15:44:53] [INFO] Rollback tip: if this run imported wrong CPIC rows, execute:
+[2026-04-14 15:44:53] [INFO]   DELETE FROM dosing_guideline WHERE source='cpic' AND id LIKE 'CPIC_%';
